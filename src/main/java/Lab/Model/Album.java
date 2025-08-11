@@ -24,17 +24,22 @@ public class Album {
     //The GeneratedValue annotation allows for Spring to automatically generate a unique ID.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+   
     private long albumId;
     private String title;
 
     /**
      * Review the other model classes to see examples of annotations that link entities.
+     * 
      */
+     @ManyToOne
+    @JoinColumn(name = "artist_id", nullable = false)
     private Artist artist;
 
     /**
      * Review the other model classes to see examples of annotations that link entities.
      */
+    @OneToMany(mappedBy = "albumId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Song> songs;
 
     public Album(String title) {
